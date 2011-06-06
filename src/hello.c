@@ -46,6 +46,7 @@ main (int argc, char *argv[])
 {
   int optc;
   int lose = 0;
+  int counter;
   const char *greeting_msg = NULL;
   greeting_type g = greet_gnu;
 
@@ -109,18 +110,39 @@ main (int argc, char *argv[])
     printf (_("hello, world\n"));
 
   else if (g == greet_new)
-    /* TRANSLATORS: Use box drawing characters or other fancy stuff
-       if your encoding (e.g., UTF-8) allows it.  If done so add the
-       following note, please:
+    {
+      if (greeting_msg)
+        {
+          size_t length = strlen(greeting_msg);
+          printf ("+");
+          for (counter = 0; counter <= (length + 1); counter++)
+            {
+              printf ("-");
+            }
+          printf ("+\n");
+          printf ("| %s |\n", greeting_msg);
+          printf ("+");
+          for (counter = 0; counter <= (length + 1); counter++)
+            {
+              printf ("-");
+            }
+          printf ("+\n");
+        }
+      else
+        {
+          /* TRANSLATORS: Use box drawing characters or other fancy stuff
+             if your encoding (e.g., UTF-8) allows it.  If done so add the
+             following note, please:
 
-       [Note: For best viewing results use a UTF-8 locale, please.]
-    */
-	printf (_("\
+             [Note: For best viewing results use a UTF-8 locale, please.]
+          */
+          printf (_("\
 +---------------+\n\
 | Hello, world! |\n\
 +---------------+\n\
 "));
-
+        }
+    }
   else if (g == greet_user)
     puts (greeting_msg);
 
